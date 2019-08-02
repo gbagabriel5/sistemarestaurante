@@ -6,9 +6,7 @@ public class Produto {
     private Double procusto;
     private Double propreco;
     private GrupoProduto grupoProduto;
-    private Fornecedor fornecedor;
     private String nomegrupo;
-    private String nomefor;
     private Integer prosaldo;
     private Integer proEstoqueMin;
     private String proStatus;
@@ -79,22 +77,6 @@ public class Produto {
 
     public void setNomegrupo(String nomegrupo) {
         this.nomegrupo = nomegrupo;
-    }
-
-    public String getNomefor() {
-        return nomefor;
-    }
-
-    public void setNomefor(String nomefor) {
-        this.nomefor = nomefor;
-    }
-
-    public Fornecedor getFornecedor() {
-        return fornecedor;
-    }
-
-    public void setFornecedor(Fornecedor fornecedor) {
-        this.fornecedor = fornecedor;
     }
 
     public int getProEstoqueMin() {

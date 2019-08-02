@@ -1,0 +1,144 @@
+create database sistemarestaurante;
+use sistemarestaurante;
+
+-- tabela departamento
+create table departamento(
+depcod integer not null auto_increment primary key,
+depdesc varchar(40)not null
+);
+insert into departamento values(null,"Vendas");
+
+-- tabela funcionario
+create table funcionario(
+funcod integer not null auto_increment primary key,
+funnome varchar(60)not null,
+funrg varchar(30)not null,
+funcpf varchar(30)not null,
+fundtnasc varchar(45)not null,
+funend varchar(60)not null,
+funfone varchar(18)not null,
+funsalario double(7,2)not null,
+fundepcod integer not null,
+foreign key(fundepcod)references departamento(depcod));
+
+-- tabela cliente
+create table cliente(
+clicod integer not null auto_increment primary key,
+clinome varchar(60)not null,
+clirg varchar(30)null,
+clicpf varchar(30)null,
+clisexo varchar(10)not null,
+cliend varchar(60)null,
+clifone varchar(18)not null
+);
+
+-- tabela grupoproduto
+create table grupoproduto(
+grpcod integer not null auto_increment primary key,
+grpdesc varchar(40)not null
+);
+insert into grupoproduto values(null,"Bebidas");
+
+-- tabela produto
+create table produto(
+procod integer not null auto_increment primary key,
+pronome varchar(60)not null,
+propreco double(7,2)not null,
+procusto double(7,2)not null,
+proestoque integer not null,
+progrpcod integer not null,
+prostatus varchar(40) not null,
+foreign key(progrpcod)references grupoproduto(grpcod)
+);
+
+create table item(
+itcod integer not null auto_increment primary key,
+itnome varchar(60)not null,
+itdesc varchar(100) not null,
+itpreco double(7,2) not null,
+itqtde double(7,2) not null,
+itmedida varchar(60) not null,
+itvalidade integer not null,
+itforcod integer not null,
+foreign key(itforcod) references fornecedor(forcod)
+);
+
+create table itemproduto(
+itpcod integer not null auto_increment,
+itpprocod integer not null,
+itpitcod integer not null,
+foreign key(itpprocod) references produto(procod),
+foreign key(itpitcod) references item(itcod),
+primary key(itpcod,itpprocod,itpitcod)
+);
+
+-- tabela usuario
+create table usuario(
+usucodigo integer not null auto_increment primary key,
+usunome varchar(60)not null,
+ususenha varchar(40)not null,
+usutipo varchar(45)not null
+);
+
+create table caixa(
+cxcod integer not null auto_increment primary key,
+cxdata varchar(60)null,
+cxdthabre varchar(60)null,
+cxdthfecha varchar(60)null,
+cxdesc varchar(60)null,
+cxsinicial double(8,2)null,
+cxsfinal double(8,2)null,
+cxobs varchar(100)null,
+cxstatus varchar(40)null
+);
+
+create table mesas(
+mcod integer not null auto_increment primary key
+);
+select *from mesas;
+insert into mesas values(null);
+-- tabela venda
+create table venda(
+vencod integer not null auto_increment,
+vencxcod integer null,
+venmcod integer null,
+vendata varchar(30) null,
+hora varchar(30) null,
+ventotal double(8,2) null,
+pagamento varchar(45)null,
+vrecebido double(7,2)null,
+troco double(7,2)null,
+venstatus varchar(40)null,
+venmstatus varchar(40)null,
+vensaida double(7,2)null,
+vendesc varchar(60)null,
+foreign key(vencxcod)references caixa(cxcod),
+foreign key(venmcod)references mesas(mcod),
+primary key(vencod)
+);
+
+
+-- tabela itemvenda
+create table itemvenda(
+itvcod integer not null auto_increment,
+itvvencod integer not null,
+itvprocod integer not null,
+itvqtde integer null,
+itvobs varchar(40) null,
+foreign key(itvvencod)references venda(vencod),
+foreign key(itvprocod)references produto(procod),
+primary key(itvcod,itvvencod,itvprocod)
+);
+
+create table fornecedor(
+forcod integer not null auto_increment primary key,
+fornome varchar(70)not null,
+forcnpj varchar(40)not null,
+forcep varchar(100)not null,
+forend varchar(100)not null,
+forfone varchar(45)not null
+);
+SELECT * FROM venda v;
+SELECT * FROM mesas m;
+select *from caixa;
+delete from caixa where cxcod=1;

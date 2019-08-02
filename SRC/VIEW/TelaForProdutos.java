@@ -533,7 +533,6 @@ public void preencherTabela(String QSL){
        pro.setProsaldo(Integer.parseInt(txtsaldo.getText()));
        pro.setProEstoqueMin(Integer.parseInt(txtsaldom.getText()));
        pro.setNomegrupo((String) comboTipo.getSelectedItem());
-       pro.setNomefor((String) comboForn.getSelectedItem());
        int est= Integer.parseInt(txtsaldo.getText());
        int estm= Integer.parseInt(txtsaldom.getText());       
        if(est>=estm){
@@ -600,7 +599,6 @@ public void preencherTabela(String QSL){
        pro.setProsaldo(Integer.parseInt(txtsaldo.getText()));       
        pro.setProEstoqueMin(Integer.parseInt(txtsaldom.getText()));       
        pro.setNomegrupo((String) comboTipo.getSelectedItem());
-       pro.setNomefor((String) comboForn.getSelectedItem());
        int est= Integer.parseInt(txtsaldo.getText());
        int estm= Integer.parseInt(txtsaldom.getText());       
        if(est>=estm){
@@ -724,16 +722,13 @@ public void preencherTabela(String QSL){
         cod=""+tabelaProduto.getValueAt(tabelaProduto.getSelectedRow(),0);        
         nome=""+tabelaProduto.getValueAt(tabelaProduto.getSelectedRow(),1);        
         pro.setProcurar(cod);
-        Produto p= prodao.ProcurarProduto1(pro);        
+        Produto p= prodao.ProcurarProduto(pro);        
         txtdesc.setText(p.getPronome());
         txtpreco.setText(String.valueOf(p.getPropreco()));
         txtcusto.setText(String.valueOf(p.getProcusto()));
         txtsaldo.setText(String.valueOf(p.getProsaldo()));
         txtsaldom.setText(String.valueOf(p.getProEstoqueMin()));
         comboTipo.setSelectedItem(p.getNomegrupo());
-        comboForn.setSelectedItem(p.getNomefor());
-        
-//        preencherTabela("select *from produto inner join grupoproduto on progrpcod=grpcod WHERE procod LIKE'%"+p.getProcurar()+"%'");
         }
         bteditar.setEnabled(true);
         btcancelar.setEnabled(true);
@@ -766,7 +761,6 @@ public void preencherTabela(String QSL){
         txtsaldo.setText(String.valueOf(p.getProsaldo()));                                                               
         txtsaldom.setText(String.valueOf(p.getProEstoqueMin()));                                                               
         comboTipo.setSelectedItem(pro.getNomegrupo());
-        comboForn.setSelectedItem(pro.getNomefor());
         
         preencherTabela("select * from produto inner join grupoproduto on progrpcod=grpcod inner join fornecedor on proforcod=forcod WHERE pronome LIKE'%"+pro.getProcurar()+"%' order by pronome");
 
@@ -880,7 +874,6 @@ public void preencherTabela(String QSL){
             pro.setProsaldo(Integer.parseInt(txtsaldo.getText()));
             pro.setProEstoqueMin(Integer.parseInt(txtsaldom.getText()));
             pro.setNomegrupo((String) comboTipo.getSelectedItem());
-            pro.setNomefor((String) comboForn.getSelectedItem());
             int est= Integer.parseInt(txtsaldo.getText());
             int estm= Integer.parseInt(txtsaldom.getText());       
             if(est>=estm){
@@ -945,7 +938,6 @@ public void preencherTabela(String QSL){
             pro.setProsaldo(Integer.parseInt(txtsaldo.getText()));       
             pro.setProEstoqueMin(Integer.parseInt(txtsaldom.getText()));       
             pro.setNomegrupo((String) comboTipo.getSelectedItem());
-            pro.setNomefor((String) comboForn.getSelectedItem());
             int est= Integer.parseInt(txtsaldo.getText());
             int estm= Integer.parseInt(txtsaldom.getText());       
             if(est>=estm){
