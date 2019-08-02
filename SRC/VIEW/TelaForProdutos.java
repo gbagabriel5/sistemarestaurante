@@ -2,9 +2,6 @@ package view;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import model.bean.GrupoProduto;
@@ -34,7 +31,7 @@ String cod,nome;
         preencherJComboFornecedor();        
         transparenciabutton();
         setTitle("Estoque");
-        preencherTabela("select * from produto inner join grupoproduto on progrpcod=grpcod inner join fornecedor on proforcod=forcod order by pronome");
+        preencherTabela("select * from produto inner join grupoproduto on progrpcod=grpcod order by pronome");
         
         try {                         
             conecta.executaSQL("SELECT * FROM produto where prostatus='Baixo';");
@@ -61,13 +58,13 @@ String cod,nome;
 public void preencherTabela(String QSL){
            
            ArrayList dados=new ArrayList();
-           String[] colunas=new String[]{"Codigo","Descrição","Preço V.","Preço C.","Estoque","Estoque Min.","Status","Tipo","Fornecedor"};
+           String[] colunas=new String[]{"Codigo","Descrição","Preço V.","Preço C.","Estoque","Estoque Min.","Status","Tipo"};
            
            conecta.executaSQL(QSL);
            try{
                conecta.rs.first();
               do{
-                dados.add(new Object[]{conecta.rs.getInt("procod"),conecta.rs.getString("pronome"),"R$"+conecta.rs.getDouble("propreco"),"R$"+conecta.rs.getDouble("procusto"),conecta.rs.getInt("proestoque"),conecta.rs.getInt("proestm"),conecta.rs.getString("prostatus"),conecta.rs.getString("grpdesc"),conecta.rs.getString("fornome")});
+                dados.add(new Object[]{conecta.rs.getInt("procod"),conecta.rs.getString("pronome"),"R$"+conecta.rs.getDouble("propreco"),"R$"+conecta.rs.getDouble("procusto"),conecta.rs.getInt("proestoque"),conecta.rs.getInt("proestm"),conecta.rs.getString("prostatus")});
                 }while(conecta.rs.next());               
            }catch(Exception erro){
 //               JOptionPane.showMessageDialog(null, "Produto não cadastrado!"+erro.getMessage());               
@@ -100,10 +97,6 @@ public void preencherTabela(String QSL){
         tabelaProduto.getColumnModel().getColumn(7).setPreferredWidth(80);        
         tabelaProduto.getColumnModel().getColumn(7).setResizable(false);
         
-        tabelaProduto.getColumnModel().getColumn(8).setPreferredWidth(150);
-        tabelaProduto.getColumnModel().getColumn(8).setResizable(false);
-                
-        
         tabelaProduto.getTableHeader().setReorderingAllowed(false);
         tabelaProduto.setAutoResizeMode(tabelaProduto.AUTO_RESIZE_OFF);
         
@@ -124,19 +117,10 @@ public void preencherTabela(String QSL){
         jLabel3 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         comboTipo = new javax.swing.JComboBox();
-        btnovo = new javax.swing.JButton();
-        btsalvar = new javax.swing.JButton();
-        bteditar = new javax.swing.JButton();
-        btexcluir = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaProduto = new javax.swing.JTable();
-        btcancelar = new javax.swing.JButton();
         txtpreco = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         txtsaldo = new javax.swing.JTextField();
-        txtprocurar = new javax.swing.JTextField();
-        btprocurar = new javax.swing.JButton();
         txtdesc = new javax.swing.JTextField();
         btadd = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
@@ -146,6 +130,18 @@ public void preencherTabela(String QSL){
         lbFornecedor = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         txtsaldom = new javax.swing.JTextField();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel2 = new javax.swing.JPanel();
+        btnovo = new javax.swing.JButton();
+        btsalvar = new javax.swing.JButton();
+        bteditar = new javax.swing.JButton();
+        btexcluir = new javax.swing.JButton();
+        btcancelar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelaProduto = new javax.swing.JTable();
+        txtprocurar = new javax.swing.JTextField();
+        btprocurar = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Funcionários");
@@ -172,72 +168,6 @@ public void preencherTabela(String QSL){
             }
         });
 
-        btnovo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/adicionar.png"))); // NOI18N
-        btnovo.setText("Novo");
-        btnovo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnovoActionPerformed(evt);
-            }
-        });
-
-        btsalvar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btsalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/save.png"))); // NOI18N
-        btsalvar.setText("Salvar");
-        btsalvar.setEnabled(false);
-        btsalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btsalvarActionPerformed(evt);
-            }
-        });
-
-        bteditar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        bteditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/maintenance.png"))); // NOI18N
-        bteditar.setText("Editar");
-        bteditar.setEnabled(false);
-        bteditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bteditarActionPerformed(evt);
-            }
-        });
-
-        btexcluir.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btexcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/x-button (1)_1.png"))); // NOI18N
-        btexcluir.setText("Excluir");
-        btexcluir.setEnabled(false);
-        btexcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btexcluirActionPerformed(evt);
-            }
-        });
-
-        tabelaProduto.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        tabelaProduto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelaProdutoMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tabelaProduto);
-
-        btcancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btcancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/007-negative.png"))); // NOI18N
-        btcancelar.setText("Cancelar");
-        btcancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btcancelarActionPerformed(evt);
-            }
-        });
-
         txtpreco.setEnabled(false);
         txtpreco.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -255,19 +185,6 @@ public void preencherTabela(String QSL){
         txtsaldo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtsaldoKeyPressed(evt);
-            }
-        });
-
-        txtprocurar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtprocurarActionPerformed(evt);
-            }
-        });
-
-        btprocurar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/lupa.png"))); // NOI18N
-        btprocurar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btprocurarActionPerformed(evt);
             }
         });
 
@@ -341,6 +258,153 @@ public void preencherTabela(String QSL){
             }
         });
 
+        jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jTabbedPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        btnovo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/adicionar.png"))); // NOI18N
+        btnovo.setText("Novo");
+        btnovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnovoActionPerformed(evt);
+            }
+        });
+
+        btsalvar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btsalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/save.png"))); // NOI18N
+        btsalvar.setText("Salvar");
+        btsalvar.setEnabled(false);
+        btsalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btsalvarActionPerformed(evt);
+            }
+        });
+
+        bteditar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        bteditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/maintenance.png"))); // NOI18N
+        bteditar.setText("Editar");
+        bteditar.setEnabled(false);
+        bteditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bteditarActionPerformed(evt);
+            }
+        });
+
+        btexcluir.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btexcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/x-button (1)_1.png"))); // NOI18N
+        btexcluir.setText("Excluir");
+        btexcluir.setEnabled(false);
+        btexcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btexcluirActionPerformed(evt);
+            }
+        });
+
+        btcancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btcancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/007-negative.png"))); // NOI18N
+        btcancelar.setText("Cancelar");
+        btcancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btcancelarActionPerformed(evt);
+            }
+        });
+
+        tabelaProduto.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tabelaProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaProdutoMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabelaProduto);
+
+        txtprocurar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtprocurarActionPerformed(evt);
+            }
+        });
+
+        btprocurar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/lupa.png"))); // NOI18N
+        btprocurar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btprocurarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnovo, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btsalvar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bteditar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btexcluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btcancelar))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addComponent(txtprocurar, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btprocurar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btprocurar)
+                    .addComponent(txtprocurar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnovo)
+                    .addComponent(btsalvar)
+                    .addComponent(bteditar)
+                    .addComponent(btexcluir)
+                    .addComponent(btcancelar))
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Estoque", jPanel2);
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 636, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 293, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Ficha Técnica", jPanel3);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -348,28 +412,6 @@ public void preencherTabela(String QSL){
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnovo, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btsalvar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(bteditar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btexcluir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btcancelar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(153, 153, 153)
-                .addComponent(txtprocurar, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btprocurar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(56, 56, 56)
@@ -411,6 +453,10 @@ public void preencherTabela(String QSL){
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtpreco, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 641, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -445,20 +491,9 @@ public void preencherTabela(String QSL){
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtsaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel11)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtprocurar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btprocurar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnovo)
-                    .addComponent(btsalvar)
-                    .addComponent(bteditar)
-                    .addComponent(btexcluir)
-                    .addComponent(btcancelar))
-                .addGap(26, 26, 26))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -543,7 +578,7 @@ public void preencherTabela(String QSL){
        prodao.salvarProduto(pro);
        preencherJCombo();
        preencherJComboFornecedor();
-       preencherTabela("select * from produto inner join grupoproduto on progrpcod=grpcod inner join fornecedor on proforcod=forcod order by pronome");
+       preencherTabela("select * from produto inner join grupoproduto on progrpcod=grpcod order by pronome");
         
         txtdesc.setEnabled(false);        
         txtpreco.setEnabled(false);
@@ -608,7 +643,7 @@ public void preencherTabela(String QSL){
        }
        prodao.updateProd(pro);
         
-       preencherTabela("select * from produto inner join grupoproduto on progrpcod=grpcod inner join fornecedor on proforcod=forcod order by pronome");
+       preencherTabela("select * from produto inner join grupoproduto on progrpcod=grpcod order by pronome");
 
         txtdesc.setEnabled(false);        
         txtpreco.setEnabled(false);
@@ -629,7 +664,7 @@ public void preencherTabela(String QSL){
         txtsaldo.setText("");
         txtsaldom.setText("");
         
-        preencherTabela("select * from produto inner join grupoproduto on progrpcod=grpcod inner join fornecedor on proforcod=forcod order by pronome");
+        preencherTabela("select * from produto inner join grupoproduto on progrpcod=grpcod order by pronome");
     }//GEN-LAST:event_bteditarActionPerformed
 
     public void preencherJCombo(){
@@ -676,13 +711,13 @@ public void preencherTabela(String QSL){
         txtsaldo.setText("");
         txtsaldom.setText("");
         
-        preencherTabela("select * from produto inner join grupoproduto on progrpcod=grpcod inner join fornecedor on proforcod=forcod order by pronome");
+        preencherTabela("select * from produto inner join grupoproduto on progrpcod=grpcod order by pronome");
         break;          
        }
     }//GEN-LAST:event_btexcluirActionPerformed
 
     private void btcancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btcancelarActionPerformed
-        preencherTabela("select * from produto inner join grupoproduto on progrpcod=grpcod inner join fornecedor on proforcod=forcod order by pronome");
+        preencherTabela("select * from produto inner join grupoproduto on progrpcod=grpcod order by pronome");
         preencherJCombo();
         preencherJComboFornecedor();
         txtdesc.setEnabled(false);        
@@ -762,7 +797,7 @@ public void preencherTabela(String QSL){
         txtsaldom.setText(String.valueOf(p.getProEstoqueMin()));                                                               
         comboTipo.setSelectedItem(pro.getNomegrupo());
         
-        preencherTabela("select * from produto inner join grupoproduto on progrpcod=grpcod inner join fornecedor on proforcod=forcod WHERE pronome LIKE'%"+pro.getProcurar()+"%' order by pronome");
+        preencherTabela("select * from produto inner join grupoproduto on progrpcod=grpcod WHERE pronome LIKE'%"+pro.getProcurar()+"%' order by pronome");
 
         bteditar.setEnabled(true);
         btcancelar.setEnabled(true);
@@ -884,7 +919,7 @@ public void preencherTabela(String QSL){
             prodao.salvarProduto(pro);
             preencherJCombo();
             preencherJComboFornecedor();
-            preencherTabela("select * from produto inner join grupoproduto on progrpcod=grpcod inner join fornecedor on proforcod=forcod order by pronome");
+            preencherTabela("select * from produto inner join grupoproduto on progrpcod=grpcod order by pronome");
                 
             txtdesc.setEnabled(false);        
             txtpreco.setEnabled(false);
@@ -947,7 +982,7 @@ public void preencherTabela(String QSL){
             }
             prodao.updateProd(pro);
             
-            preencherTabela("select * from produto inner join grupoproduto on progrpcod=grpcod inner join fornecedor on proforcod=forcod order by pronome");
+            preencherTabela("select * from produto inner join grupoproduto on progrpcod=grpcod order by pronome");
 
             txtdesc.setEnabled(false);        
             txtpreco.setEnabled(false);
@@ -968,7 +1003,7 @@ public void preencherTabela(String QSL){
             txtsaldo.setText("");
             txtsaldom.setText("");
             
-            preencherTabela("select * from produto inner join grupoproduto on progrpcod=grpcod inner join fornecedor on proforcod=forcod order by pronome");
+            preencherTabela("select * from produto inner join grupoproduto on progrpcod=grpcod order by pronome");
        }
     }
     }//GEN-LAST:event_txtsaldomKeyPressed
@@ -1154,7 +1189,10 @@ public void preencherTabela(String QSL){
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lbFornecedor;
     private javax.swing.JTable tabelaProduto;
     private javax.swing.JTextField txtcusto;
