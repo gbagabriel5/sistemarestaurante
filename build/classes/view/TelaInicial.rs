@@ -1,0 +1,13 @@
+view.TelaInicial$9
+view.TelaInicial
+view.TelaInicial$8
+view.TelaInicial$7
+view.TelaInicial$6
+view.TelaInicial$1
+view.TelaInicial$5
+view.TelaInicial$11
+view.TelaInicial$4
+view.TelaInicial$12
+view.TelaInicial$3
+view.TelaInicial$2
+view.TelaInicial$10
