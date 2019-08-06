@@ -33,11 +33,30 @@ clifone varchar(18)not null
 );
 
 -- tabela grupoproduto
-create table grupoproduto(
-grpcod integer not null auto_increment primary key,
-grpdesc varchar(40)not null
+create table categoriaProduto(
+ctpcod integer not null auto_increment primary key,
+ctpdesc varchar(40)not null
 );
-insert into grupoproduto values(null,"Bebidas");
+
+create table observacao(
+obscod integer not null auto_increment primary key,
+obsdesc varchar(100) not null
+);
+
+create table tamanho(
+tamcod integer not null auto_increment primary key,
+tamnome varchar(60) not null,
+tampreco double(7,2)not null,
+);
+
+create table produtoTamanho(
+ptcod integer not null auto_increment,
+pttamcod integer not null,
+ptprocod integer not null,
+foreign key(pttamcod)references tamanho(tamcod),
+foreign key(ptprocod)references produto(procod),
+primary key(ptcod,pttamcod,ptprocod)
+);
 
 -- tabela produto
 create table produto(
@@ -45,22 +64,32 @@ procod integer not null auto_increment primary key,
 pronome varchar(60)not null,
 propreco double(7,2)not null,
 procusto double(7,2)not null,
-proestoque integer not null,
-progrpcod integer not null,
+prounmed varchar(10)not null,
+proest integer not null,
+proestm integer not null,
 prostatus varchar(40) not null,
-foreign key(progrpcod)references grupoproduto(grpcod)
+proctpcod integer not null,
+foreign key(proctpcod)references categoriaProduto(ctpcod)
+);
+
+create table categoriaItem(
+cticod integer not null auto_increment primary key,
+ctinome varchar(40) not null
 );
 
 create table item(
 itcod integer not null auto_increment primary key,
 itnome varchar(60)not null,
-itdesc varchar(100) not null,
-itpreco double(7,2) not null,
-itqtde double(7,2) not null,
-itmedida varchar(60) not null,
+itcusto double(7,2) not null,
+itunmed varchar(4) not null,
+itest double(7,2) not null,
+itestm double(7,2) not null,
 itvalidade integer not null,
+itstatus varchar(40) not null,
 itforcod integer not null,
-foreign key(itforcod) references fornecedor(forcod)
+itcticod integer not null,
+foreign key(itforcod) references fornecedor(forcod),
+foreign key(itcticod) references categoriaItem(cticod)
 );
 
 create table itemproduto(
