@@ -1,0 +1,525 @@
+-- MySQL Administrator dump 1.4
+--
+-- ------------------------------------------------------
+-- Server version	5.5.20
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+
+--
+-- Create schema sistemarestaurante
+--
+
+CREATE DATABASE IF NOT EXISTS sistemarestaurante;
+USE sistemarestaurante;
+
+--
+-- Definition of table `caixa`
+--
+
+DROP TABLE IF EXISTS `caixa`;
+CREATE TABLE `caixa` (
+  `cxcod` int(11) NOT NULL AUTO_INCREMENT,
+  `cxdata` varchar(40) DEFAULT NULL,
+  `cxdthabre` varchar(60) DEFAULT NULL,
+  `cxdthfecha` varchar(60) DEFAULT NULL,
+  `cxdesc` varchar(60) DEFAULT NULL,
+  `cxsinicial` double(8,2) DEFAULT NULL,
+  `cxsfinal` double(8,2) DEFAULT NULL,
+  `cxobs` varchar(100) DEFAULT NULL,
+  `cxstatus` varchar(40) DEFAULT NULL,
+  PRIMARY KEY (`cxcod`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `caixa`
+--
+
+/*!40000 ALTER TABLE `caixa` DISABLE KEYS */;
+INSERT INTO `caixa` (`cxcod`,`cxdata`,`cxdthabre`,`cxdthfecha`,`cxdesc`,`cxsinicial`,`cxsfinal`,`cxobs`,`cxstatus`) VALUES 
+ (1,'30/07/2019','30/07/2019 09:41','30/07/2019 10:02',NULL,100.00,111.00,'Aberto 30/07/2019 09:41','FECHADO'),
+ (2,'30/07/2019','30/07/2019 10:02',NULL,NULL,100.00,NULL,'','ABERTO');
+/*!40000 ALTER TABLE `caixa` ENABLE KEYS */;
+
+
+--
+-- Definition of table `categoriaitem`
+--
+
+DROP TABLE IF EXISTS `categoriaitem`;
+CREATE TABLE `categoriaitem` (
+  `cticod` int(11) NOT NULL AUTO_INCREMENT,
+  `ctinome` varchar(40) NOT NULL,
+  PRIMARY KEY (`cticod`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `categoriaitem`
+--
+
+/*!40000 ALTER TABLE `categoriaitem` DISABLE KEYS */;
+INSERT INTO `categoriaitem` (`cticod`,`ctinome`) VALUES 
+ (1,'Carnes'),
+ (2,'Frios');
+/*!40000 ALTER TABLE `categoriaitem` ENABLE KEYS */;
+
+
+--
+-- Definition of table `categoriaproduto`
+--
+
+DROP TABLE IF EXISTS `categoriaproduto`;
+CREATE TABLE `categoriaproduto` (
+  `ctpcod` int(11) NOT NULL AUTO_INCREMENT,
+  `ctpdesc` varchar(40) NOT NULL,
+  PRIMARY KEY (`ctpcod`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `categoriaproduto`
+--
+
+/*!40000 ALTER TABLE `categoriaproduto` DISABLE KEYS */;
+INSERT INTO `categoriaproduto` (`ctpcod`,`ctpdesc`) VALUES 
+ (1,'Comidas'),
+ (2,'Bebidas');
+/*!40000 ALTER TABLE `categoriaproduto` ENABLE KEYS */;
+
+
+--
+-- Definition of table `cliente`
+--
+
+DROP TABLE IF EXISTS `cliente`;
+CREATE TABLE `cliente` (
+  `clicod` int(11) NOT NULL AUTO_INCREMENT,
+  `clinome` varchar(60) NOT NULL,
+  `clirg` varchar(30) DEFAULT NULL,
+  `clicpf` varchar(30) DEFAULT NULL,
+  `cliend` varchar(60) DEFAULT NULL,
+  `clifone` varchar(18) NOT NULL,
+  PRIMARY KEY (`clicod`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `cliente`
+--
+
+/*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
+INSERT INTO `cliente` (`clicod`,`clinome`,`clirg`,`clicpf`,`cliend`,`clifone`) VALUES 
+ (1,'Gabriel Brandão Almeida Fonseca','2332277-2','041.829.142-01','rua jabuti','(92)99339-5090'),
+ (3,'Jucelino Fonseca','2332277-2','041.829.142-01','rua jabuti','(92)99339-5090'),
+ (5,'Bruno Baninhas','23322772','0418291424','rua banana bairro pacovã','999333993'),
+ (7,'123','123','123','rua','123');
+/*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
+
+
+--
+-- Definition of table `departamento`
+--
+
+DROP TABLE IF EXISTS `departamento`;
+CREATE TABLE `departamento` (
+  `depcod` int(11) NOT NULL AUTO_INCREMENT,
+  `depdesc` varchar(40) NOT NULL,
+  PRIMARY KEY (`depcod`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `departamento`
+--
+
+/*!40000 ALTER TABLE `departamento` DISABLE KEYS */;
+INSERT INTO `departamento` (`depcod`,`depdesc`) VALUES 
+ (1,'Vendas');
+/*!40000 ALTER TABLE `departamento` ENABLE KEYS */;
+
+
+--
+-- Definition of table `fornecedor`
+--
+
+DROP TABLE IF EXISTS `fornecedor`;
+CREATE TABLE `fornecedor` (
+  `forcod` int(11) NOT NULL AUTO_INCREMENT,
+  `fornome` varchar(70) NOT NULL,
+  `forcnpj` varchar(40) NOT NULL,
+  `forcep` varchar(100) NOT NULL,
+  `forend` varchar(100) NOT NULL,
+  `forfone` varchar(45) NOT NULL,
+  PRIMARY KEY (`forcod`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `fornecedor`
+--
+
+/*!40000 ALTER TABLE `fornecedor` DISABLE KEYS */;
+INSERT INTO `fornecedor` (`forcod`,`fornome`,`forcnpj`,`forcep`,`forend`,`forfone`) VALUES 
+ (1,'Supermercados Db Ltda.','22.991.939/0022-22','69.097-634','Av. Margarita - Cidade Nova, Manaus - AM, 69097-305','(92)93667-4530');
+/*!40000 ALTER TABLE `fornecedor` ENABLE KEYS */;
+
+
+--
+-- Definition of table `funcionario`
+--
+
+DROP TABLE IF EXISTS `funcionario`;
+CREATE TABLE `funcionario` (
+  `funcod` int(11) NOT NULL AUTO_INCREMENT,
+  `funnome` varchar(60) NOT NULL,
+  `funrg` varchar(30) NOT NULL,
+  `funcpf` varchar(30) NOT NULL,
+  `fundtnasc` varchar(45) NOT NULL,
+  `funend` varchar(60) NOT NULL,
+  `funfone` varchar(18) NOT NULL,
+  `funsalario` double(7,2) NOT NULL,
+  `fundepcod` int(11) NOT NULL,
+  PRIMARY KEY (`funcod`),
+  KEY `fundepcod` (`fundepcod`),
+  CONSTRAINT `funcionario_ibfk_1` FOREIGN KEY (`fundepcod`) REFERENCES `departamento` (`depcod`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `funcionario`
+--
+
+/*!40000 ALTER TABLE `funcionario` DISABLE KEYS */;
+/*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
+
+
+--
+-- Definition of table `item`
+--
+
+DROP TABLE IF EXISTS `item`;
+CREATE TABLE `item` (
+  `itcod` int(11) NOT NULL AUTO_INCREMENT,
+  `itnome` varchar(60) NOT NULL DEFAULT '',
+  `itpreco` double(7,2) NOT NULL DEFAULT '0.00',
+  `itcusto` double(7,2) NOT NULL DEFAULT '0.00',
+  `itunmed` varchar(4) NOT NULL DEFAULT '',
+  `itest` double(7,2) NOT NULL DEFAULT '0.00',
+  `itestm` double(7,2) NOT NULL DEFAULT '0.00',
+  `itvalidade` int(11) DEFAULT NULL,
+  `itstatus` varchar(40) DEFAULT NULL,
+  `itforcod` int(11) NOT NULL,
+  `itcticod` int(11) NOT NULL,
+  PRIMARY KEY (`itcod`),
+  KEY `itforcod` (`itforcod`),
+  KEY `itcticod` (`itcticod`),
+  CONSTRAINT `item_ibfk_1` FOREIGN KEY (`itforcod`) REFERENCES `fornecedor` (`forcod`),
+  CONSTRAINT `item_ibfk_2` FOREIGN KEY (`itcticod`) REFERENCES `categoriaitem` (`cticod`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `item`
+--
+
+/*!40000 ALTER TABLE `item` DISABLE KEYS */;
+INSERT INTO `item` (`itcod`,`itnome`,`itpreco`,`itcusto`,`itunmed`,`itest`,`itestm`,`itvalidade`,`itstatus`,`itforcod`,`itcticod`) VALUES 
+ (1,'Hamburguer',1.50,1.00,'KG',5.00,3.00,3,NULL,1,1),
+ (2,'baconn',10.00,5.00,'KG',1.20,1.00,3,'OK',1,2),
+ (4,'Queijo',10.00,8.00,'KG',1.00,1.00,5,NULL,1,2),
+ (19,'Presunto',1.00,5.00,'KG',1.00,0.40,5,'OK',1,2);
+/*!40000 ALTER TABLE `item` ENABLE KEYS */;
+
+
+--
+-- Definition of table `itemproduto`
+--
+
+DROP TABLE IF EXISTS `itemproduto`;
+CREATE TABLE `itemproduto` (
+  `itpcod` int(11) NOT NULL AUTO_INCREMENT,
+  `itpprocod` int(11) DEFAULT NULL,
+  `itpitcod` int(11) DEFAULT NULL,
+  PRIMARY KEY (`itpcod`),
+  KEY `itpprocod` (`itpprocod`),
+  KEY `itpitcod` (`itpitcod`),
+  CONSTRAINT `itemproduto_ibfk_1` FOREIGN KEY (`itpprocod`) REFERENCES `produto` (`procod`),
+  CONSTRAINT `itemproduto_ibfk_2` FOREIGN KEY (`itpitcod`) REFERENCES `item` (`itcod`)
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `itemproduto`
+--
+
+/*!40000 ALTER TABLE `itemproduto` DISABLE KEYS */;
+INSERT INTO `itemproduto` (`itpcod`,`itpprocod`,`itpitcod`) VALUES 
+ (21,26,NULL),
+ (22,26,NULL),
+ (23,26,NULL),
+ (24,26,NULL),
+ (29,29,4),
+ (30,29,2),
+ (31,29,19),
+ (32,30,4),
+ (33,30,2),
+ (34,30,19),
+ (42,31,19),
+ (43,31,4),
+ (44,31,1),
+ (45,31,2);
+/*!40000 ALTER TABLE `itemproduto` ENABLE KEYS */;
+
+
+--
+-- Definition of table `itemvenda`
+--
+
+DROP TABLE IF EXISTS `itemvenda`;
+CREATE TABLE `itemvenda` (
+  `itvcod` int(11) NOT NULL AUTO_INCREMENT,
+  `itvvencod` int(11) NOT NULL,
+  `itvprocod` int(11) NOT NULL,
+  `itvqtde` int(11) DEFAULT NULL,
+  `itvobs` varchar(40) DEFAULT NULL,
+  PRIMARY KEY (`itvcod`,`itvvencod`,`itvprocod`),
+  KEY `itvvencod` (`itvvencod`),
+  KEY `itvprocod` (`itvprocod`),
+  CONSTRAINT `itemvenda_ibfk_1` FOREIGN KEY (`itvvencod`) REFERENCES `venda` (`vencod`),
+  CONSTRAINT `itemvenda_ibfk_2` FOREIGN KEY (`itvprocod`) REFERENCES `produto` (`procod`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `itemvenda`
+--
+
+/*!40000 ALTER TABLE `itemvenda` DISABLE KEYS */;
+/*!40000 ALTER TABLE `itemvenda` ENABLE KEYS */;
+
+
+--
+-- Definition of table `mesas`
+--
+
+DROP TABLE IF EXISTS `mesas`;
+CREATE TABLE `mesas` (
+  `mcod` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`mcod`)
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `mesas`
+--
+
+/*!40000 ALTER TABLE `mesas` DISABLE KEYS */;
+INSERT INTO `mesas` (`mcod`) VALUES 
+ (1),
+ (2),
+ (3),
+ (4),
+ (5),
+ (6),
+ (7),
+ (8),
+ (9),
+ (10),
+ (11),
+ (12),
+ (13),
+ (14),
+ (15),
+ (16),
+ (17),
+ (18),
+ (19),
+ (20),
+ (21),
+ (22),
+ (23),
+ (24),
+ (25),
+ (26),
+ (27),
+ (28),
+ (29),
+ (30),
+ (31),
+ (32),
+ (33),
+ (34),
+ (35),
+ (36),
+ (37),
+ (38),
+ (39),
+ (40),
+ (41),
+ (42),
+ (43),
+ (44),
+ (45),
+ (46),
+ (47),
+ (48),
+ (49),
+ (50),
+ (51),
+ (52),
+ (53),
+ (54),
+ (55),
+ (56),
+ (57),
+ (58),
+ (59),
+ (60);
+/*!40000 ALTER TABLE `mesas` ENABLE KEYS */;
+
+
+--
+-- Definition of table `produto`
+--
+
+DROP TABLE IF EXISTS `produto`;
+CREATE TABLE `produto` (
+  `procod` int(11) NOT NULL AUTO_INCREMENT,
+  `pronome` varchar(60) NOT NULL,
+  `propreco` double(7,2) NOT NULL,
+  `procusto` double(7,2) NOT NULL,
+  `proest` int(11) DEFAULT NULL,
+  `proestm` int(11) DEFAULT NULL,
+  `prostatus` varchar(40) DEFAULT NULL,
+  `proctpcod` int(11) NOT NULL,
+  `procts` varchar(5) DEFAULT NULL,
+  PRIMARY KEY (`procod`),
+  KEY `proctpcod` (`proctpcod`),
+  CONSTRAINT `produto_ibfk_1` FOREIGN KEY (`proctpcod`) REFERENCES `categoriaproduto` (`ctpcod`)
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `produto`
+--
+
+/*!40000 ALTER TABLE `produto` DISABLE KEYS */;
+INSERT INTO `produto` (`procod`,`pronome`,`propreco`,`procusto`,`proest`,`proestm`,`prostatus`,`proctpcod`,`procts`) VALUES 
+ (1,'Soda lata',4.00,2.00,50,50,NULL,2,'Sim'),
+ (2,'x-salada',8.00,3.00,NULL,NULL,NULL,1,'Não'),
+ (3,'x-salada',8.00,3.00,NULL,NULL,NULL,1,'Não'),
+ (26,'x-tudo',8.00,3.00,NULL,NULL,'Sem Controle',1,'Não'),
+ (29,'Bananiha especial',4.00,3.00,NULL,NULL,'Sem Controle',1,'Não'),
+ (30,'Bananiha especial',4.00,3.00,NULL,NULL,'Sem Controle',1,'Não'),
+ (31,'Kikao especial',4.00,3.00,NULL,NULL,'Sem Controle',1,'Sim');
+/*!40000 ALTER TABLE `produto` ENABLE KEYS */;
+
+
+--
+-- Definition of table `produtotamanho`
+--
+
+DROP TABLE IF EXISTS `produtotamanho`;
+CREATE TABLE `produtotamanho` (
+  `ptcod` int(11) NOT NULL AUTO_INCREMENT,
+  `pttamcod` int(11) NOT NULL,
+  `ptprocod` int(11) NOT NULL,
+  PRIMARY KEY (`ptcod`,`pttamcod`,`ptprocod`),
+  KEY `pttamcod` (`pttamcod`),
+  KEY `ptprocod` (`ptprocod`),
+  CONSTRAINT `produtotamanho_ibfk_1` FOREIGN KEY (`pttamcod`) REFERENCES `tamanho` (`tamcod`),
+  CONSTRAINT `produtotamanho_ibfk_2` FOREIGN KEY (`ptprocod`) REFERENCES `produto` (`procod`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `produtotamanho`
+--
+
+/*!40000 ALTER TABLE `produtotamanho` DISABLE KEYS */;
+/*!40000 ALTER TABLE `produtotamanho` ENABLE KEYS */;
+
+
+--
+-- Definition of table `tamanho`
+--
+
+DROP TABLE IF EXISTS `tamanho`;
+CREATE TABLE `tamanho` (
+  `tamcod` int(11) NOT NULL AUTO_INCREMENT,
+  `tamnome` varchar(60) NOT NULL,
+  `tampreco` double(7,2) NOT NULL,
+  PRIMARY KEY (`tamcod`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tamanho`
+--
+
+/*!40000 ALTER TABLE `tamanho` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tamanho` ENABLE KEYS */;
+
+
+--
+-- Definition of table `usuario`
+--
+
+DROP TABLE IF EXISTS `usuario`;
+CREATE TABLE `usuario` (
+  `usucodigo` int(11) NOT NULL AUTO_INCREMENT,
+  `usunome` varchar(60) NOT NULL,
+  `ususenha` varchar(40) NOT NULL,
+  `usutipo` varchar(45) NOT NULL,
+  PRIMARY KEY (`usucodigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `usuario`
+--
+
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` (`usucodigo`,`usunome`,`ususenha`,`usutipo`) VALUES 
+ (1,'adm','123','Administrador');
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+
+
+--
+-- Definition of table `venda`
+--
+
+DROP TABLE IF EXISTS `venda`;
+CREATE TABLE `venda` (
+  `vencod` int(11) NOT NULL AUTO_INCREMENT,
+  `vencxcod` int(11) DEFAULT NULL,
+  `venmcod` int(11) DEFAULT NULL,
+  `vendata` varchar(30) DEFAULT NULL,
+  `hora` varchar(30) DEFAULT NULL,
+  `ventotal` double(8,2) DEFAULT NULL,
+  `pagamento` varchar(45) DEFAULT NULL,
+  `vrecebido` double(7,2) DEFAULT NULL,
+  `troco` double(7,2) DEFAULT NULL,
+  `venstatus` varchar(40) DEFAULT NULL,
+  `venmstatus` varchar(40) DEFAULT NULL,
+  `vensaida` double(7,2) DEFAULT NULL,
+  `vendesc` varchar(60) DEFAULT NULL,
+  PRIMARY KEY (`vencod`),
+  KEY `vencxcod` (`vencxcod`),
+  KEY `venmcod` (`venmcod`),
+  CONSTRAINT `venda_ibfk_1` FOREIGN KEY (`vencxcod`) REFERENCES `caixa` (`cxcod`),
+  CONSTRAINT `venda_ibfk_2` FOREIGN KEY (`venmcod`) REFERENCES `mesas` (`mcod`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `venda`
+--
+
+/*!40000 ALTER TABLE `venda` DISABLE KEYS */;
+/*!40000 ALTER TABLE `venda` ENABLE KEYS */;
+
+
+
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
